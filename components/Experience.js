@@ -23,10 +23,10 @@ const Experience = () => {
 			<div className='bg-[#F1F1F1] dark:bg-gray-900 -mt-4'>
 				<div className='grid grid-cols-1 dark:bg-gray-900 max-w-xl mx-auto pt-20'>
 					{/* Experience card */}
-					{userData.experience.map((exp, idx) => (
+					{userData.experience.map((exp, i) => (
 						<>
-							<ExperienceCard key={idx} title={exp.title} desc={exp.desc} year={exp.year} company={exp.company} companyLink={exp.companyLink} />
-							{idx === userData.experience.length - 1 ? null : (
+							<ExperienceCard key={i} title={exp.title} desc={exp.desc} year={exp.year} company={exp.company} companyLink={exp.companyLink} />
+							{i === userData.experience.length - 1 ? null : (
 								<div className='divider-container flex flex-col items-center -mt-2'>
 									<div className='w-4 h-4 bg-green-500 rounded-full relative z-10'>
 										<div className='w-4 h-4 bg-green-500 rounded-full relative z-10 animate-ping'></div>
