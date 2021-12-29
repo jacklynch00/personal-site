@@ -17,8 +17,8 @@ const GithubRepoCard = ({ latestRepo }) => {
 const LatestCode = ({ repositories }) => {
 	const [repos, setRepos] = useState([]);
 
-	useEffect(async () => {
-		setRepos(repositories);
+	useEffect(() => {
+		setRepos();
 	}, []);
 
 	return (

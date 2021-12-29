@@ -44,6 +44,7 @@ const Contact = () => {
 							<a
 								href={userData.socialLinks.twitter}
 								target='_blank'
+								rel='noreferrer'
 								className='h-10 w-10 rounded-full hover:bg-blue-500 flex items-center justify-center cursor-pointer'>
 								<svg width='24' height='24' className='text-gray-50' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
 									<path
@@ -57,6 +58,7 @@ const Contact = () => {
 							<a
 								href={userData.socialLinks.instagram}
 								target='_blank'
+								rel='noreferrer'
 								className='h-10 w-10 rounded-full hover:bg-blue-500 flex items-center justify-center cursor-pointer'>
 								<svg width='24' height='24' className='text-gray-50' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
 									<path
@@ -78,8 +80,7 @@ const Contact = () => {
 					</div>
 					<form className='form rounded-lg bg-white p-4 flex flex-col'>
 						<label htmlFor='name' className='text-sm text-gray-600 mx-4'>
-							{' '}
-							Your Name
+							&apos;Your Name
 						</label>
 						<input
 							type='text'

@@ -27,28 +27,28 @@ const About = () => {
 								Shoot me an{' '}
 								<a href={`mailto:${userData.email}`} className='text-gray-800 border-b-2 border-gray-800 dark:border-gray-300 font-bold dark:text-gray-300'>
 									email
-								</a>{' '}
-								and I'll get back ASAP... I promise :)
+								</a>
+								&apos; and I'll get back ASAP... I promise :)
 							</p>
 						</div>
 						<div className='mt-8'>
 							<h1 className='text-xl font-semibold text-gray-700 dark:text-gray-200'>Job Opportunities</h1>
 							<p className='text-lg text-gray-500 mt-4 dark:text-gray-300'>
-								I'm currently looking for new opportunites. If you see me as a good fit, check out my{' '}
+								I'm currently looking for new opportunites. If you see me as a good fit, check out my&apos;
 								<a
 									href={userData.resumeUrl}
 									target='__blank'
 									className='text-gray-800 border-b-2 border-gray-800 dark:border-gray-300 font-bold dark:text-gray-300'>
 									Resume
-								</a>{' '}
-								and reach out!
+								</a>
+								&apos; and reach out!
 							</p>
 						</div>
 						{/* Social Links */}
 						<h1 className='text-xl font-semibold text-gray-700 mt-8 dark:text-gray-200'>Social Links</h1>
 						<div className='mt-4 ml-4'>
 							<div className='flex flex-row justify-start items-center'>
-								<a href={userData.socialLinks.twitter} target='_blank' className='flex flex-row items-center space-x-4 group'>
+								<a href={userData.socialLinks.twitter} target='_blank' rel='noreferrer' className='flex flex-row items-center space-x-4 group'>
 									<div className='my-4'>&rarr;</div>
 									<p className='text-lg text-gray-500 font-mono relative overflow-hidden dark:text-gray-300'>
 										<div className='absolute h-0.5 w-full bg-gray-400 bottom-0 transform -translate-x-24 group-hover:translate-x-0 transition duration-300'></div>
@@ -57,7 +57,7 @@ const About = () => {
 								</a>
 							</div>
 							<div className='flex flex-row justify-start items-center'>
-								<a href={userData.socialLinks.github} target='_blank' className='flex flex-row items-center space-x-4 group'>
+								<a href={userData.socialLinks.github} target='_blank' rel='noreferrer' className='flex flex-row items-center space-x-4 group'>
 									<div className='my-4'>&rarr;</div>
 									<p className='text-lg text-gray-500 font-mono relative overflow-hidden dark:text-gray-300'>
 										<div className='absolute h-0.5 w-full bg-gray-400 bottom-0 transform -translate-x-24 group-hover:translate-x-0 transition duration-300'></div>
@@ -66,7 +66,7 @@ const About = () => {
 								</a>
 							</div>
 							<div className='flex flex-row justify-start items-center'>
-								<a href={userData.socialLinks.linkedin} target='_blank' className='flex flex-row items-center space-x-4 group'>
+								<a href={userData.socialLinks.linkedin} target='_blank' rel='noreferrer' className='flex flex-row items-center space-x-4 group'>
 									<div className='my-4'>&rarr;</div>
 									<p className='text-lg text-gray-500 font-mono relative overflow-hidden dark:text-gray-300'>
 										<div className='absolute h-0.5 w-full bg-gray-400 bottom-0 transform -translate-x-24 group-hover:translate-x-0 transition duration-300'></div>
@@ -75,7 +75,7 @@ const About = () => {
 								</a>
 							</div>
 							<div className='flex flex-row justify-start items-center'>
-								<a href={userData.socialLinks.twitter} target='_blank' className='flex flex-row items-center space-x-4 group'>
+								<a href={userData.socialLinks.twitter} target='_blank' rel='noreferrer' className='flex flex-row items-center space-x-4 group'>
 									<div className='my-4'>&rarr;</div>
 									<p className='text-lg text-gray-500 font-mono relative overflow-hidden dark:text-gray-300'>
 										<div className='absolute h-0.5 w-full bg-gray-400 bottom-0 transform -translate-x-28 group-hover:translate-x-0 transition duration-300'></div>
