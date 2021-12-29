@@ -1,5 +1,5 @@
 import React from 'react';
-import userData from '@constants/data';
+import userData from '@/constants/data';
 
 const About = () => {
 	return (
@@ -21,8 +21,41 @@ const About = () => {
 				<div className='pt-20 grid grid-cols-1 md:grid-cols-3 max-w-6xl mx-auto gap-y-20 gap-x-20'>
 					{/* Social Buttons */}
 					<div className='inline-flex flex-col'>
+						{/* Achievements */}
 						<div>
-							<h1 className='text-xl font-semibold text-gray-700 dark:text-gray-200'>Contact</h1>
+							<h1 className='text-xl font-bold text-gray-700 dark:text-gray-200'>Achievements</h1>
+							<div className='bg-slate-800 rounded-xl p-3 mt-2 mb-2'>
+								<h1 className='text-lg text-gray-500 italic font-semibold dark:text-gray-300'>Hackathon Finalist</h1>
+								<p className='text-ms text-gray-500 dark:text-gray-300'>
+									&bull; Runner up among 9 teams in the 2021 OHI/O Hackathon as a solo-team building a full-stack project for AEP to crowdsource info and annotate
+									images of their power supply chain.
+								</p>
+								<p className='text-ms text-gray-500 dark:text-gray-300'>
+									&bull;{' '}
+									<a className='underline' rel='noreferrer' href='https://github.com/jacklynch00/aep-power-lines.git'>
+										View The Project Here
+									</a>
+								</p>
+							</div>
+							<div className='bg-slate-800 rounded-xl p-3 mt-2 mb-2'>
+								<h1 className='text-lg text-gray-500 italic font-semibold dark:text-gray-300'>First Place OSU Launch Pad</h1>
+								<p className='text-ms text-gray-500 dark:text-gray-300'>
+									&bull; First place in a business pitch competition to help reduce the amount of time people spend shopping for groceries.
+								</p>
+								<p className='text-ms text-gray-500 dark:text-gray-300'>
+									&bull;{' '}
+									<a
+										className='underline'
+										rel='noreferrer'
+										href='https://docs.google.com/presentation/d/1oCCoTUWa2yvRh_Burueoj4SYEJbB5_BmgpjuWjRX1wo/edit?usp=sharing'>
+										View The Pitch Deck Here
+									</a>
+								</p>
+							</div>
+						</div>
+						{/* Contact Me */}
+						<div className='mt-8'>
+							<h1 className='text-xl font-bold text-gray-700 dark:text-gray-200'>Contact</h1>
 							<p className='text-lg text-gray-500 mt-4 dark:text-gray-300'>
 								Shoot me an{' '}
 								<a href={`mailto:${userData.email}`} className='text-gray-800 border-b-2 border-gray-800 dark:border-gray-300 font-bold dark:text-gray-300'>
@@ -31,8 +64,9 @@ const About = () => {
 								and I&apos;ll get back ASAP... I promise :)
 							</p>
 						</div>
+						{/* Resume */}
 						<div className='mt-8'>
-							<h1 className='text-xl font-semibold text-gray-700 dark:text-gray-200'>Job Opportunities</h1>
+							<h1 className='text-xl font-bold text-gray-700 dark:text-gray-200'>Job Opportunities</h1>
 							<p className='text-lg text-gray-500 mt-4 dark:text-gray-300'>
 								I&apos;m currently looking for new opportunites. If you see me as a good fit, check out my{' '}
 								<a
@@ -46,7 +80,7 @@ const About = () => {
 							</p>
 						</div>
 						{/* Social Links */}
-						<h1 className='text-xl font-semibold text-gray-700 mt-8 dark:text-gray-200'>Social Links</h1>
+						<h1 className='text-xl font-bold text-gray-700 mt-8 dark:text-gray-200'>Social Links</h1>
 						<div className='mt-4 ml-4'>
 							<div className='flex flex-row justify-start items-center'>
 								<a href={userData.socialLinks.twitter} target='_blank' rel='noreferrer' className='flex flex-row items-center space-x-4 group'>

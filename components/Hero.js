@@ -1,7 +1,7 @@
 import React from 'react';
 import { RoughNotationGroup } from 'react-rough-notation';
 import { RainbowHighlight } from './RainbowHighlight';
-import userData from '@constants/data';
+import userData from '@/constants/data';
 
 const Hero = () => {
 	const colors = ['#F59E0B', '#84CC16', '#3B82F6'];

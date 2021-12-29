@@ -1,6 +1,6 @@
 import React from 'react';
-import ContainerModule from '../components/ContainerModule';
-import Experience from '../components/Experience';
+import ContainerModule from '@/components/ContainerModule';
+import Experience from '@/components/Experience';
 
 const experience = () => {
 	return (

@@ -1,10 +1,11 @@
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
-import ContainerModule from '../components/ContainerModule';
-import Hero from '../components/Hero.js';
-import FavProjects from '../components/FavProjects';
-import LatestCode from '../components/LatestCode';
-import userData from '@constants/data';
+import styles from '@/styles/Home.module.css';
+import ContainerModule from '@/components/ContainerModule';
+import Hero from '@/components/Hero.js';
+import FavProjects from '@/components/FavProjects';
+import LatestCode from '@/components/LatestCode';
+import userData from '@/constants/data';
+import getLatestRepos from '@/lib/getLatestRepos';
 
 const Home = ({ repos }) => {
 	return (
@@ -19,8 +20,9 @@ const Home = ({ repos }) => {
 };
 
 export const getServerSideProps = async () => {
+	const repos = await getLatestRepos(userData);
 	return {
-		props: { repos: [] },
+		props: { repos },
 	};
 };
 
