@@ -1,5 +1,6 @@
 import React from 'react';
 import userData from '@/constants/data';
+import Image from 'next/image';
 
 const About = () => {
 	return (
@@ -129,44 +130,22 @@ const About = () => {
 						))}
 
 						<h1 className='bg-red-500 text-3xl rounded-md px-2 py-1 inline-block font-bold text-gray-50'>Tech Stack</h1>
-						<div className='flex flex-row flex-wrap mt-8'>
+						<div className='flex flex-row flex-wrap items-stretch mt-8'>
 							{/* TODO: Add my own images here to speed it up */}
-							<img
-								src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png'
-								className='h-20 w-20 mx-4 my-4'
-							/>
-							<img
-								src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png'
-								className='h-20 w-20 mx-4 my-4'
-							/>
-							<img
-								src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/typescript/typescript.png'
-								className='h-20 w-20 mx-4 my-4'
-							/>
-							<img
-								src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png'
-								className='h-20 w-20 mx-4 my-4'
-							/>
-							<img
-								src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/css/css.png'
-								className='h-20 w-20 mx-4 my-4'
-							/>
-							<img
-								src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/git/git.png'
-								className='h-20 w-20 mx-4 my-4'
-							/>
-							<img
-								src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/firebase/firebase.png'
-								className='h-20 w-20 mx-4 my-4'
-							/>
-							<img
-								src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/mysql/mysql.png'
-								className='h-20 w-20 mx-4 my-4'
-							/>
-							<img
-								src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/mongodb/mongodb.png'
-								className='h-20 w-20 mx-4 my-4'
-							/>
+							<Image className='h-20 w-20 mx-4 my-10' src='/tech-stack/javascript.png' width={150} height={100} />
+							<Image className='h-20 w-20 mx-4 my-10' src='/tech-stack/python.png' width={200} height={100} />
+							<Image className='h-20 w-20 mx-4 my-10' src='/tech-stack/html.png' width={100} height={100} />
+							<Image className='h-20 w-20 mx-4 my-10' src='/tech-stack/css.png' width={150} height={100} />
+							<Image className='h-20 w-20 mx-4 my-10' src='/tech-stack/react.png' width={150} height={100} />
+							<Image className='h-20 w-20 mx-4 my-10' src='/tech-stack/redux.png' width={150} height={100} />
+							<Image className='h-20 w-20 mx-4 my-10' src='/tech-stack/django.png' width={200} height={100} />
+							<Image className='h-20 w-20 mx-4 my-10' src='/tech-stack/express.png' width={300} height={100} />
+							<Image className='h-20 w-20 mx-4 my-10' src='/tech-stack/firebase.png' width={200} height={100} />
+							<Image className='h-20 w-20 mx-4 my-10' src='/tech-stack/git.png' width={200} height={100} />
+							<Image className='h-20 w-20 mx-4 my-10' src='/tech-stack/linux.png' width={200} height={100} />
+							<Image className='h-20 w-20 mx-4 my-10' src='/tech-stack/mysql.png' width={200} height={100} />
+							<Image className='h-20 w-20 mx-4 my-10' src='/tech-stack/node.png' width={150} height={100} />
+							<Image className='h-20 w-20 mx-4 my-10' src='/tech-stack/postgresql.png' width={150} height={100} />
 						</div>
 					</div>
 				</div>
