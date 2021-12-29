@@ -11,8 +11,8 @@ const Contact = () => {
 				<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 					<div className='md:ml-4'>
 						<header className=''>
-							<h1 className='text-black-500 font-semibold text-2xl'>Get in touch, let's talk.</h1>
-							<p className='font-light text-base text-black-500 mt-2'>Fill in the details and I'll get back to you as soon as I can.</p>
+							<h1 className='text-black-500 font-semibold text-2xl'>Get in touch, let&apos;s talk.</h1>
+							<p className='font-light text-base text-black-500 mt-2'>Fill in the details and I&apos;ll get back to you as soon as I can.</p>
 						</header>
 						<div className='icons-container inline-flex flex-col my-20'>
 							<div className='flex flex-row items-center space-x-6 rounded-md border border-[#ccc] mt-2 hover:border hover:border-blue-500 p-4'>
@@ -80,7 +80,7 @@ const Contact = () => {
 					</div>
 					<form className='form rounded-lg bg-white p-4 flex flex-col'>
 						<label htmlFor='name' className='text-sm text-gray-600 mx-4'>
-							&apos;Your Name
+							Your Name
 						</label>
 						<input
 							type='text'

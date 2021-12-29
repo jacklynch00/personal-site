@@ -27,21 +27,22 @@ const About = () => {
 								Shoot me an{' '}
 								<a href={`mailto:${userData.email}`} className='text-gray-800 border-b-2 border-gray-800 dark:border-gray-300 font-bold dark:text-gray-300'>
 									email
-								</a>
-								&apos; and I'll get back ASAP... I promise :)
+								</a>{' '}
+								and I&apos;ll get back ASAP... I promise :)
 							</p>
 						</div>
 						<div className='mt-8'>
 							<h1 className='text-xl font-semibold text-gray-700 dark:text-gray-200'>Job Opportunities</h1>
 							<p className='text-lg text-gray-500 mt-4 dark:text-gray-300'>
-								I'm currently looking for new opportunites. If you see me as a good fit, check out my&apos;
+								I&apos;m currently looking for new opportunites. If you see me as a good fit, check out my{' '}
 								<a
 									href={userData.resumeUrl}
 									target='__blank'
+									rel='noreferrer'
 									className='text-gray-800 border-b-2 border-gray-800 dark:border-gray-300 font-bold dark:text-gray-300'>
 									Resume
-								</a>
-								&apos; and reach out!
+								</a>{' '}
+								and reach out!
 							</p>
 						</div>
 						{/* Social Links */}
