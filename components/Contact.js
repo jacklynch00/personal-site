@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
 import userData from '@/constants/data';
 
-const Contact = () => {
+const Contact = ({}) => {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [message, setMessage] = useState('');
@@ -42,20 +42,40 @@ const Contact = () => {
 		emailjs
 			.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID)
 			.then((resp) => {
-				console.log(resp);
 				setName('');
 				setEmail('');
 				setMessage('');
-				setEmailSent(true);
+				setEmailSent(
+					true,
+					setTimeout(() => {
+						setEmailSent(false);
+					}, 4000)
+				);
 			})
 			.catch((err) => {
-				console.log(err);
-				setEmailSendErr(true);
+				setEmailSendErr(
+					true,
+					setTimeout(() => {
+						setEmailSendErr(false);
+					}, 4000)
+				);
 			});
 	};
 
 	return (
 		<section>
+			{/* Alerts for email sent/error */}
+			{emailSent ? (
+				<div className='absolute transition-all ease-in-out top-0 left-0 right-0 mt-5 mx-auto p-5 bg-green-400 rounded-lg w-1/2'>
+					<p className='font-semibold'>&#10004; Jack has just been sent an email!</p>
+				</div>
+			) : null}
+			{emailSendErr ? (
+				<div className='absolute transition-all ease-in-out top-0 left-0 right-0 mt-5 mx-auto p-5 bg-red-700 rounded-lg w-1/2'>
+					<p className='font-semibold'>&#120; There was an issue sending Jack an email!</p>
+				</div>
+			) : null}
+
 			<div className='max-w-6xl mx-auto h-48 bg-white dark:bg-gray-800 antialiased'>
 				<h1 className=' text-5xl md:text-9xl font-bold py-20 text-center md:text-left'>Contact</h1>
 			</div>
