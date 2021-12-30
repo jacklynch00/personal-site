@@ -1,7 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
+import emailjs from 'emailjs-com';
 import userData from '@/constants/data';
 
 const Contact = () => {
+	const [name, setName] = useState('');
+	const [email, setEmail] = useState('');
+	const [message, setMessage] = useState('');
+	const [emailSent, setEmailSent] = useState(false);
+	const [emailSendErr, setEmailSendErr] = useState(false);
+
+	const SERVICE_ID = process.env.EMAIL_SERVICE_ID;
+	const TEMPLATE_ID = process.env.EMAIL_TEMPLATE_ID;
+	const USER_ID = process.env.EMAIL_USER_ID;
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		if (!name) {
+			// Show name err message
+			alert('Please make sure to fill out the name field.');
+			return;
+		}
+
+		if (!email) {
+			// Show email err message
+			alert('Please make sure to fill out the email field.');
+			return;
+		}
+
+		if (!message) {
+			// Show message err message
+			alert('Please make sure to fill out the message field.');
+			return;
+		}
+
+		const templateParams = {
+			name,
+			email,
+			message,
+		};
+
+		emailjs
+			.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID)
+			.then((resp) => {
+				console.log(resp);
+				setName('');
+				setEmail('');
+				setMessage('');
+				setEmailSent(true);
+			})
+			.catch((err) => {
+				console.log(err);
+				setEmailSendErr(true);
+			});
+	};
+
 	return (
 		<section>
 			<div className='max-w-6xl mx-auto h-48 bg-white dark:bg-gray-800 antialiased'>
@@ -78,22 +130,26 @@ const Contact = () => {
 							</a>
 						</div>
 					</div>
-					<form className='form rounded-lg bg-white p-4 flex flex-col'>
+					<form className='gform form rounded-lg bg-white p-4 flex flex-col' onSubmit={handleSubmit}>
 						<label htmlFor='name' className='text-sm text-gray-600 mx-4'>
 							Your Name
 						</label>
 						<input
 							type='text'
-							className='font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500'
+							className='font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500 dark:bg-slate-300 dark:text-gray-800 dark:font-semibold'
 							name='name'
+							value={name}
+							onChange={(e) => setName(e.target.value)}
 						/>
 						<label htmlFor='email' className='text-sm text-gray-600 mx-4 mt-4'>
 							Email
 						</label>
 						<input
 							type='text'
-							className='font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500'
+							className='font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500 dark:bg-slate-300 dark:text-gray-800 dark:font-semibold'
 							name='email'
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
 						/>
 						<label htmlFor='message' className='text-sm text-gray-600 mx-4 mt-4'>
 							Message
@@ -101,8 +157,10 @@ const Contact = () => {
 						<textarea
 							rows='4'
 							type='text'
-							className='font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500'
-							name='message'></textarea>
+							className='font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500 dark:bg-slate-300 dark:text-gray-800 dark:font-semibold'
+							name='message'
+							value={message}
+							onChange={(e) => setMessage(e.target.value)}></textarea>
 						<button type='submit' className='bg-blue-500 rounded-md w-1/2 mx-4 mt-8 py-2 text-gray-50 text-xs font-bold'>
 							Send Message
 						</button>
