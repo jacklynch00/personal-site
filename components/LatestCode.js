@@ -19,7 +19,7 @@ const LatestCode = ({ repos }) => {
 
 	useEffect(() => {
 		setRepositories(repos);
-	}, []);
+	}, [repos]);
 
 	return (
 		<section className='bg-[#F1F1F1] -mt-40 dark:bg-gray-900 pb-40'>
