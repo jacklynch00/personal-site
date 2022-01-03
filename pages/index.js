@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import amplitude from 'amplitude-js';
+
 import styles from '@/styles/Home.module.css';
 import ContainerModule from '@/components/ContainerModule';
 import Hero from '@/components/Hero.js';
