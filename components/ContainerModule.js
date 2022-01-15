@@ -21,8 +21,8 @@ const ContainerModule = ({ children, ...customMeta }) => {
 				<title>{meta.title}</title>
 				<meta name='robots' content='follow, index' />
 				<meta content={meta.description} name='description' />
-				<meta property='og:url' content={`https://yourwebsite.com${router.asPath}`} />
-				<meta canonical='canonical' href={`https://yourwebsite.com${router.asPath}`} />
+				<meta property='og:url' content={`https://jacklynch.dev${router.asPath}`} />
+				<meta canonical='canonical' href={`https://jacklynch.dev${router.asPath}`} />
 				<meta property='og:type' content={meta.type} />
 				<meta property='og:site_name' content='Jack Lynch' />
 				<meta property='og:description' content={meta.description} />
@@ -35,7 +35,7 @@ const ContainerModule = ({ children, ...customMeta }) => {
 				<meta name='twitter:image' content={meta.image} />
 				{meta.date && <meta property='article:published_time' content={meta.date} />}
 			</Head>
-			<main className='dark:bg-gray-800 w-full'>
+			<main className='w-full dark:bg-gray-800'>
 				<Navbar />
 				<div>{children}</div>
 				<Footer />
