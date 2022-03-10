@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import userData from '@/constants/data';
+import userData from '../constants/data';
 
 const GithubRepoCard = ({ latestRepo }) => {
 	return (
-		<div className='github-repo bg-slate-800/75 p-3 rounded-lg'>
-			<h1 className='font-semibold text-xl dark:text-gray-200 text-gray-700'>{latestRepo.name}</h1>
-			<p className='text-base font-normal my-4 text-gray-500'>{latestRepo.description}</p>
-			<a href={latestRepo.clone_url} target='_blank' rel='noreferrer' className='font-semibold group flex flex-row space-x-2 w-full items-center'>
+		<div className='p-3 rounded-lg github-repo bg-slate-800/75'>
+			<h1 className='text-xl font-semibold text-gray-700 dark:text-gray-200'>{latestRepo.name}</h1>
+			<p className='my-4 text-base font-normal text-gray-500'>{latestRepo.description}</p>
+			<a href={latestRepo.clone_url} target='_blank' rel='noreferrer' className='flex flex-row items-center w-full space-x-2 font-semibold group'>
 				<p>View Repository </p>
-				<div className='transform  group-hover:translate-x-2 transition duration-300'>&rarr;</div>
+				<div className='transition duration-300 transform group-hover:translate-x-2'>&rarr;</div>
 			</a>
 		</div>
 	);
@@ -24,12 +24,12 @@ const LatestCode = ({ repos }) => {
 	return (
 		<section className='bg-[#F1F1F1] -mt-40 dark:bg-gray-900 pb-40'>
 			<div className='max-w-6xl mx-auto'>
-				<div className='flex flex-col md:flex-row justify-between items-center md:pt-40 mx-10'>
-					<h1 className='text-6xl lg:text-9xl max-w-lg font-bold text-gray-500 my-20 md:my-0 md:text-white dark:text-gray-600 text-center lg:text-left'>Latest Code</h1>
+				<div className='flex flex-col items-center justify-between mx-10 md:flex-row md:pt-40'>
+					<h1 className='max-w-lg my-20 text-6xl font-bold text-center text-gray-500 lg:text-9xl md:my-0 md:text-white dark:text-gray-600 lg:text-left'>Latest Code</h1>
 
 					<a
 						href={`https://github.com/${userData.githubUsername}`}
-						className='mb-20 md:mb-0 px-8 py-4 rounded-md bg-white shadow-lg text-xl font-semibold flex flex-row space-x-4 items-center dark:text-gray-700'>
+						className='flex flex-row items-center px-8 py-4 mb-20 space-x-4 text-xl font-semibold bg-white rounded-md shadow-lg md:mb-0 dark:text-gray-700'>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							width='16'
@@ -48,7 +48,7 @@ const LatestCode = ({ repos }) => {
 					</a>
 				</div>
 			</div>
-			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-10 lg:-mt-10 gap-y-20'>
+			<div className='grid max-w-6xl grid-cols-1 gap-8 px-10 mx-auto md:grid-cols-2 lg:grid-cols-3 lg:-mt-10 gap-y-20'>
 				{/* Single github Repo */}
 				{repositories && repositories.map((latestRepo, i) => <GithubRepoCard latestRepo={latestRepo} key={i} />)}
 			</div>

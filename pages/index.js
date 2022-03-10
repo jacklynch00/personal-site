@@ -1,12 +1,12 @@
 import Head from 'next/head';
 
-import styles from '@/styles/Home.module.css';
-import ContainerModule from '@/components/ContainerModule';
-import Hero from '@/components/Hero.js';
-import FavProjects from '@/components/FavProjects';
-import LatestCode from '@/components/LatestCode';
-import userData from '@/constants/data';
-import getLatestRepos from '@/lib/getLatestRepos';
+import styles from '../styles/Home.module.css';
+import ContainerModule from '../components/ContainerModule';
+import Hero from '../components/Hero.js';
+import FavProjects from '../components/FavProjects';
+import LatestCode from '../components/LatestCode';
+import userData from '../constants/data';
+import getLatestRepos from '../lib/getLatestRepos';
 
 const Home = ({ repos }) => {
 	return (

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { ThemeProvider } from 'next-themes';
 import { useRouter } from 'next/router';
 
-import * as ga from '@/lib/ga';
+import * as ga from '../lib/ga';
 import '../styles/globals.css';
 
 import { init as EmailInit } from 'emailjs-com';

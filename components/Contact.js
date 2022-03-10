@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
-import userData from '@/constants/data';
+import userData from '../constants/data';
 
 const Contact = ({}) => {
 	const [name, setName] = useState('');
@@ -66,38 +66,38 @@ const Contact = ({}) => {
 		<section>
 			{/* Alerts for email sent/error */}
 			{emailSent ? (
-				<div className='absolute transition-all ease-in-out top-0 left-0 right-0 mt-5 mx-auto p-5 bg-green-400 rounded-lg w-1/2'>
+				<div className='absolute top-0 left-0 right-0 w-1/2 p-5 mx-auto mt-5 transition-all ease-in-out bg-green-400 rounded-lg'>
 					<p className='font-semibold'>&#10004; Jack has just been sent an email!</p>
 				</div>
 			) : null}
 			{emailSendErr ? (
-				<div className='absolute transition-all ease-in-out top-0 left-0 right-0 mt-5 mx-auto p-5 bg-red-700 rounded-lg w-1/2'>
+				<div className='absolute top-0 left-0 right-0 w-1/2 p-5 mx-auto mt-5 transition-all ease-in-out bg-red-700 rounded-lg'>
 					<p className='font-semibold'>&#120; There was an issue sending Jack an email!</p>
 				</div>
 			) : null}
 
-			<div className='max-w-6xl mx-auto h-48 bg-white dark:bg-gray-800 antialiased'>
-				<h1 className=' text-5xl md:text-9xl font-bold py-20 text-center md:text-left'>Contact</h1>
+			<div className='h-48 max-w-6xl mx-auto antialiased bg-white dark:bg-gray-800'>
+				<h1 className='py-20 text-5xl font-bold text-center  md:text-9xl md:text-left'>Contact</h1>
 			</div>
-			<div className='relative z-10 rounded-md shadow-xl p-4 md:p-10 lg:p-20 max-w-6xl mx-auto mb-20 -mt-4'>
-				<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+			<div className='relative z-10 max-w-6xl p-4 mx-auto mb-20 -mt-4 rounded-md shadow-xl md:p-10 lg:p-20'>
+				<div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
 					<div className='md:ml-4'>
 						<header className=''>
-							<h1 className='text-black-500 font-semibold text-2xl'>Get in touch, let&apos;s talk.</h1>
-							<p className='font-light text-base text-black-500 mt-2'>Fill in the details and I&apos;ll get back to you as soon as I can.</p>
+							<h1 className='text-2xl font-semibold text-black-500'>Get in touch, let&apos;s talk.</h1>
+							<p className='mt-2 text-base font-light text-black-500'>Fill in the details and I&apos;ll get back to you as soon as I can.</p>
 						</header>
-						<div className='icons-container inline-flex flex-col my-20'>
+						<div className='inline-flex flex-col my-20 icons-container'>
 							<div className='flex flex-row items-center space-x-6 rounded-md border border-[#ccc] mt-2 hover:border hover:border-blue-500 p-4'>
 								<svg
 									xmlns='http://www.w3.org/2000/svg'
 									width='16'
 									height='16'
 									fill='currentColor'
-									className='bi bi-envelope-fill h-4 w-4 text-blue-500'
+									className='w-4 h-4 text-blue-500 bi bi-envelope-fill'
 									viewBox='0 0 16 16'>
 									<path d='M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z' />
 								</svg>
-								<p className='text-black-500 font-light text-sm'>{userData.email}</p>
+								<p className='text-sm font-light text-black-500'>{userData.email}</p>
 							</div>
 							<div className='flex flex-row items-center space-x-6 rounded-md border border-[#ccc] mt-2 hover:border hover:border-blue-500 p-4'>
 								<svg
@@ -105,19 +105,19 @@ const Contact = ({}) => {
 									width='16'
 									height='16'
 									fill='currentColor'
-									className='bi bi-pin-fill h-4 w-4 text-blue-500'
+									className='w-4 h-4 text-blue-500 bi bi-pin-fill'
 									viewBox='0 0 16 16'>
 									<path d='M4.146.146A.5.5 0 0 1 4.5 0h7a.5.5 0 0 1 .5.5c0 .68-.342 1.174-.646 1.479-.126.125-.25.224-.354.298v4.431l.078.048c.203.127.476.314.751.555C12.36 7.775 13 8.527 13 9.5a.5.5 0 0 1-.5.5h-4v4.5c0 .276-.224 1.5-.5 1.5s-.5-1.224-.5-1.5V10h-4a.5.5 0 0 1-.5-.5c0-.973.64-1.725 1.17-2.189A5.921 5.921 0 0 1 5 6.708V2.277a2.77 2.77 0 0 1-.354-.298C4.342 1.674 4 1.179 4 .5a.5.5 0 0 1 .146-.354z' />
 								</svg>
-								<p className='text-black-500 font-light text-sm'>{userData.address}</p>
+								<p className='text-sm font-light text-black-500'>{userData.address}</p>
 							</div>
 						</div>
-						<div className='social-icons flex flex-row space-x-8'>
+						<div className='flex flex-row space-x-8 social-icons'>
 							<a
 								href={userData.socialLinks.twitter}
 								target='_blank'
 								rel='noreferrer'
-								className='h-10 w-10 rounded-full hover:bg-blue-500 flex items-center justify-center cursor-pointer'>
+								className='flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-blue-500'>
 								<svg width='24' height='24' className='text-gray-50' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
 									<path
 										fillRule='evenodd'
@@ -131,7 +131,7 @@ const Contact = ({}) => {
 								href={userData.socialLinks.instagram}
 								target='_blank'
 								rel='noreferrer'
-								className='h-10 w-10 rounded-full hover:bg-blue-500 flex items-center justify-center cursor-pointer'>
+								className='flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-blue-500'>
 								<svg width='24' height='24' className='text-gray-50' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
 									<path
 										fillRule='evenodd'
@@ -150,38 +150,38 @@ const Contact = ({}) => {
 							</a>
 						</div>
 					</div>
-					<form className='gform form rounded-lg bg-white p-4 flex flex-col' onSubmit={handleSubmit}>
-						<label htmlFor='name' className='text-sm text-gray-600 mx-4'>
+					<form className='flex flex-col p-4 bg-white rounded-lg gform form' onSubmit={handleSubmit}>
+						<label htmlFor='name' className='mx-4 text-sm text-gray-600'>
 							Your Name
 						</label>
 						<input
 							type='text'
-							className='font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500 dark:bg-slate-300 dark:text-gray-800 dark:font-semibold'
+							className='px-1 py-2 mx-4 mt-2 font-light border rounded-md focus:outline-none focus:ring-2 focus:border-none ring-blue-500 dark:bg-slate-300 dark:text-gray-800 dark:font-semibold'
 							name='name'
 							value={name}
 							onChange={(e) => setName(e.target.value)}
 						/>
-						<label htmlFor='email' className='text-sm text-gray-600 mx-4 mt-4'>
+						<label htmlFor='email' className='mx-4 mt-4 text-sm text-gray-600'>
 							Email
 						</label>
 						<input
 							type='text'
-							className='font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500 dark:bg-slate-300 dark:text-gray-800 dark:font-semibold'
+							className='px-1 py-2 mx-4 mt-2 font-light border rounded-md focus:outline-none focus:ring-2 focus:border-none ring-blue-500 dark:bg-slate-300 dark:text-gray-800 dark:font-semibold'
 							name='email'
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
 						/>
-						<label htmlFor='message' className='text-sm text-gray-600 mx-4 mt-4'>
+						<label htmlFor='message' className='mx-4 mt-4 text-sm text-gray-600'>
 							Message
 						</label>
 						<textarea
 							rows='4'
 							type='text'
-							className='font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500 dark:bg-slate-300 dark:text-gray-800 dark:font-semibold'
+							className='px-1 py-2 mx-4 mt-2 font-light border rounded-md focus:outline-none focus:ring-2 focus:border-none ring-blue-500 dark:bg-slate-300 dark:text-gray-800 dark:font-semibold'
 							name='message'
 							value={message}
 							onChange={(e) => setMessage(e.target.value)}></textarea>
-						<button type='submit' className='bg-blue-500 rounded-md w-1/2 mx-4 mt-8 py-2 text-gray-50 text-xs font-bold'>
+						<button type='submit' className='w-1/2 py-2 mx-4 mt-8 text-xs font-bold bg-blue-500 rounded-md text-gray-50'>
 							Send Message
 						</button>
 					</form>
