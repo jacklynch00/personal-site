@@ -4,7 +4,7 @@
 - [Getting Started](#getting-started)
 
 # About
-This repository contains the code for my personal website, available at www.jacklynch.dev. I built it using the Next.JS framework which ustilizes React, TailwindCSS and various other JS packages.
+This repository contains the code for my personal website, available at [www.jacklynch.dev](www.jacklynch.dev). I built it using the Next.JS framework which ustilizes React, TailwindCSS and various other JS packages.
 
 # Structure
 ```
