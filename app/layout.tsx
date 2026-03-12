@@ -1,4 +1,5 @@
 import './globals.css';
+import Script from 'next/script';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -31,6 +32,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="container">
           {children}
         </div>
+        <Script
+          defer
+          data-website-id="dfid_BMYQNi3XLMkbTFPtdF5eA"
+          data-domain="jacklynch.dev"
+          src="https://datafa.st/js/script.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
