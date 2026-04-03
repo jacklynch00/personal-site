@@ -130,3 +130,21 @@ article .back-link:hover {
   background: none;
   padding: 0;
 }
+
+/* Section styles */
+.section-description {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.section-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.section-link:hover {
+  color: #000;
+}

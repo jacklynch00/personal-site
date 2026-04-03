@@ -1,9 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { getEssays } from '@/lib/essays';
+import { getFootnotes } from '@/lib/footnotes';
 
 export default async function Home() {
   const essays = await getEssays();
+  const footnotes = await getFootnotes();
 
   return (
     <>
@@ -39,6 +41,24 @@ export default async function Home() {
           </ul>
         </section>
       )}
+
+      <section>
+        <h2>Footnotes</h2>
+        <p className="section-description">Quick thoughts on random topics. Less polished, more exploratory.</p>
+        {footnotes.length > 0 ? (
+          <ul className="essay-list">
+            {footnotes.map((fn) => (
+              <li key={fn.slug}>
+                <Link href={`/footnotes/${fn.slug}`}>{fn.title}</Link>
+                <span className="essay-date">{fn.date}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p style={{ color: '#999', fontSize: '0.9rem' }}>Coming soon.</p>
+        )}
+        <Link href="/footnotes" className="section-link">View all footnotes →</Link>
+      </section>
     </>
   );
 }
