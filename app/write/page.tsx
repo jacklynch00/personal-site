@@ -105,9 +105,28 @@ export default function WritePage() {
       <div>
         <h1>Write</h1>
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            setAuthenticated(true);
+            if (!password) {
+              setStatus('Enter a password');
+              return;
+            }
+            setStatus('Checking...');
+            try {
+              const res = await fetch('/api/verify-password', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password }),
+              });
+              if (res.ok) {
+                setStatus('');
+                setAuthenticated(true);
+              } else {
+                setStatus('Wrong password');
+              }
+            } catch {
+              setStatus('Failed to verify password');
+            }
           }}
         >
           <input
@@ -122,6 +141,7 @@ export default function WritePage() {
             Enter
           </button>
         </form>
+        {status && <p style={{ color: status === 'Checking...' ? '#333' : '#c00', marginTop: '0.5rem' }}>{status}</p>}
       </div>
     );
   }
@@ -203,6 +223,7 @@ const buttonStyle: React.CSSProperties = {
   border: '1px solid #ddd',
   borderRadius: '4px',
   background: '#fff',
+  color: '#000',
   cursor: 'pointer',
   fontSize: '0.9rem',
   fontFamily: 'inherit',
