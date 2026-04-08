@@ -9,6 +9,7 @@ export interface Essay {
   title: string;
   date: string;
   draft?: boolean;
+  archived?: boolean;
   content: string;
 }
 
@@ -28,12 +29,13 @@ export async function getEssays(): Promise<Essay[]> {
         title: data.title as string,
         date: data.date as string,
         draft: data.draft === true,
+        archived: data.archived === true,
         content: fileContents,
       };
     })
     .sort((a, b) => (a.date > b.date ? -1 : 1));
 
-  return essays.filter((e) => !e.draft);
+  return essays.filter((e) => !e.draft && !e.archived);
 }
 
 export async function getAllEssays(): Promise<Essay[]> {
@@ -52,6 +54,7 @@ export async function getAllEssays(): Promise<Essay[]> {
         title: data.title as string,
         date: data.date as string,
         draft: data.draft === true,
+        archived: data.archived === true,
         content: fileContents,
       };
     })
@@ -63,10 +66,26 @@ export async function getEssay(slug: string): Promise<Essay | null> {
   if (!fs.existsSync(fullPath)) return null;
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
+  if (data.draft === true || data.archived === true) return null;
   return {
     slug,
     title: data.title as string,
     date: data.date as string,
+    content,
+  };
+}
+
+export async function getRawEssay(slug: string): Promise<Essay | null> {
+  const fullPath = path.join(essaysDirectory, `${slug}.mdx`);
+  if (!fs.existsSync(fullPath)) return null;
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const { data, content } = matter(fileContents);
+  return {
+    slug,
+    title: data.title as string,
+    date: data.date as string,
+    draft: data.draft === true,
+    archived: data.archived === true,
     content,
   };
 }
