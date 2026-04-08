@@ -1,0 +1,23 @@
+app/api/generate-topics/route.ts
+  9ecca94735fc85de 4-5,66-67,76-85,93-102,105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "0739894dd9f63e94309cb6bbf8c68d0d41a7a6ca",
+  "prompts": {
+    "9ecca94735fc85de": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aa487eca-6bdd-445e-b7b6-0b7a69562390",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Jack Lynch",
+      "messages": [],
+      "total_additions": 26,
+      "total_deletions": 14,
+      "accepted_lines": 26,
+      "overriden_lines": 0
+    }
+  }
+}
