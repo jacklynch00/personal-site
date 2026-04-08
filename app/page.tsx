@@ -18,7 +18,7 @@ export default async function Home() {
           className="avatar"
         />
         <h1>Jack Lynch</h1>
-        <p>Software developer based in Columbus, Ohio. Building things on the web.</p>
+        <p>Software developer based in New York City. Building things on the web.</p>
         <p className="social-links">
           <a href="https://twitter.com/jack_lynch00">Twitter</a>
           {' · '}
