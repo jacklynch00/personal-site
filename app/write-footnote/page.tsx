@@ -3,15 +3,10 @@
 import { useState, useRef, useEffect } from 'react';
 import MarkdownEditor from '../components/MarkdownEditor';
 
-interface TopicLink {
-  title: string;
-  url: string;
-}
-
 interface Topic {
   prompt: string;
   category: string;
-  links: TopicLink[];
+  context: string;
 }
 
 interface OutlineItem {
@@ -567,19 +562,9 @@ export default function WriteFootnotePage() {
                       <p style={{ margin: '0.25rem 0 0.5rem', fontWeight: 500, color: '#000' }}>
                         {topic.prompt}
                       </p>
-                      <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                        {topic.links.map((link, j) => (
-                          <a
-                            key={j}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ fontSize: '0.8rem', color: '#666' }}
-                          >
-                            {link.title}
-                          </a>
-                        ))}
-                      </div>
+                      <p style={{ margin: 0, fontSize: '0.82rem', color: '#888', lineHeight: 1.4 }}>
+                        {topic.context}
+                      </p>
                     </div>
                     <button
                       onClick={() => pickTopic(topic)}
@@ -605,19 +590,9 @@ export default function WriteFootnotePage() {
             <p style={{ margin: '0.25rem 0 0.5rem', fontWeight: 500, color: '#000' }}>
               {selectedTopic.prompt}
             </p>
-            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '0.5rem' }}>
-              {selectedTopic.links.map((link, j) => (
-                <a
-                  key={j}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ fontSize: '0.8rem', color: '#666' }}
-                >
-                  {link.title}
-                </a>
-              ))}
-            </div>
+            <p style={{ margin: '0 0 0.5rem', fontSize: '0.82rem', color: '#888', lineHeight: 1.4 }}>
+              {selectedTopic.context}
+            </p>
             <button
               onClick={() => setSelectedTopic(null)}
               style={{ ...linkButtonStyle, fontSize: '0.8rem', color: '#999' }}
