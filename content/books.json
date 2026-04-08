@@ -1,4 +1,11 @@
 {
   "goal": 12,
-  "books": []
+  "books": [
+    {
+      "title": "Hail Mary",
+      "author": "Andy Weir",
+      "status": "reading",
+      "year": 2026
+    }
+  ]
 }
