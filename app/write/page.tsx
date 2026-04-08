@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import MarkdownEditor from '../components/MarkdownEditor';
 
 interface Draft {
   title: string;
@@ -158,16 +159,11 @@ export default function WritePage() {
         style={{ ...inputStyle, fontWeight: 600, fontSize: '1.1rem' }}
       />
 
-      <textarea
-        placeholder="Write your essay in Markdown..."
+      <MarkdownEditor
         value={content}
-        onChange={(e) => setContent(e.target.value)}
-        style={{
-          ...inputStyle,
-          minHeight: '50vh',
-          lineHeight: '1.6',
-          resize: 'vertical',
-        }}
+        onChange={setContent}
+        password={password}
+        placeholder="Write your essay in Markdown..."
       />
 
       <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
