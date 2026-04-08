@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-interface DraftItem {
+interface ContentItem {
   slug: string;
   title: string;
   date: string;
@@ -14,28 +14,28 @@ export default function AdminPage() {
   const [password, setPassword] = useState('');
   const [authenticated, setAuthenticated] = useState(false);
   const [status, setStatus] = useState('');
-  const [draftEssays, setDraftEssays] = useState<DraftItem[]>([]);
-  const [draftFootnotes, setDraftFootnotes] = useState<DraftItem[]>([]);
+  const [essays, setEssays] = useState<ContentItem[]>([]);
+  const [footnotes, setFootnotes] = useState<ContentItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [publishing, setPublishing] = useState<string | null>(null);
 
-  async function fetchDrafts() {
+  async function fetchContent() {
     setLoading(true);
     try {
-      const res = await fetch(`/api/drafts?password=${encodeURIComponent(password)}`);
+      const res = await fetch(`/api/content?password=${encodeURIComponent(password)}`);
       if (res.ok) {
         const data = await res.json();
-        setDraftEssays(data.essays);
-        setDraftFootnotes(data.footnotes);
+        setEssays(data.essays);
+        setFootnotes(data.footnotes);
       }
     } catch (e) {
-      setStatus(`Failed to load drafts: ${e}`);
+      setStatus(`Failed to load content: ${e}`);
     }
     setLoading(false);
   }
 
   useEffect(() => {
-    if (authenticated) fetchDrafts();
+    if (authenticated) fetchContent();
   }, [authenticated]);
 
   async function publishDraft(slug: string, type: 'essay' | 'footnote') {
@@ -49,7 +49,7 @@ export default function AdminPage() {
       const data = await res.json();
       if (res.ok) {
         setStatus(`Published! Will be live at ${data.path} in ~1 min`);
-        await fetchDrafts();
+        await fetchContent();
         setTimeout(() => setStatus(''), 3000);
       } else {
         setStatus(`Error: ${data.error}`);
@@ -110,8 +110,6 @@ export default function AdminPage() {
     );
   }
 
-  const hasDrafts = draftEssays.length > 0 || draftFootnotes.length > 0;
-
   return (
     <div>
       <h1>Admin</h1>
@@ -125,55 +123,79 @@ export default function AdminPage() {
         </Link>
       </div>
 
-      <h2>Drafts</h2>
-
       {loading && <p style={{ color: '#999' }}>Loading...</p>}
 
-      {!loading && !hasDrafts && (
-        <p style={{ color: '#999', fontSize: '0.9rem' }}>No drafts.</p>
+      {!loading && essays.length === 0 && footnotes.length === 0 && (
+        <p style={{ color: '#999', fontSize: '0.9rem' }}>No content yet.</p>
       )}
 
-      {draftEssays.length > 0 && (
-        <div style={{ marginBottom: '1.5rem' }}>
-          <h3 style={subheadingStyle}>Essays</h3>
-          {draftEssays.map((d) => (
-            <div key={d.slug} style={draftRowStyle}>
-              <div>
-                <span style={{ fontWeight: 500 }}>{d.title}</span>
-                <span style={{ color: '#999', fontSize: '0.85rem', marginLeft: '0.5rem' }}>
-                  {d.date}
+      {essays.length > 0 && (
+        <div style={{ marginBottom: '2rem' }}>
+          <h2 style={sectionHeadingStyle}>Essays</h2>
+          {essays.map((item) => (
+            <div key={item.slug} style={rowStyle}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1, minWidth: 0 }}>
+                <span style={{ fontWeight: 500 }}>{item.title}</span>
+                <span style={{ color: '#999', fontSize: '0.85rem', flexShrink: 0 }}>
+                  {item.date}
                 </span>
+                {item.draft && (
+                  <span style={draftBadgeStyle}>draft</span>
+                )}
               </div>
-              <button
-                onClick={() => publishDraft(d.slug, 'essay')}
-                disabled={publishing === d.slug}
-                style={{ ...buttonStyle, background: '#000', color: '#fff', fontSize: '0.8rem', padding: '0.35rem 0.75rem' }}
-              >
-                {publishing === d.slug ? 'Publishing...' : 'Publish'}
-              </button>
+              <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0 }}>
+                <Link
+                  href={`/write?slug=${item.slug}`}
+                  style={{ ...smallButtonStyle, textDecoration: 'none' }}
+                >
+                  Edit
+                </Link>
+                {item.draft && (
+                  <button
+                    onClick={() => publishDraft(item.slug, 'essay')}
+                    disabled={publishing === item.slug}
+                    style={{ ...smallButtonStyle, background: '#000', color: '#fff' }}
+                  >
+                    {publishing === item.slug ? 'Publishing...' : 'Publish'}
+                  </button>
+                )}
+              </div>
             </div>
           ))}
         </div>
       )}
 
-      {draftFootnotes.length > 0 && (
-        <div style={{ marginBottom: '1.5rem' }}>
-          <h3 style={subheadingStyle}>Footnotes</h3>
-          {draftFootnotes.map((d) => (
-            <div key={d.slug} style={draftRowStyle}>
-              <div>
-                <span style={{ fontWeight: 500 }}>{d.title}</span>
-                <span style={{ color: '#999', fontSize: '0.85rem', marginLeft: '0.5rem' }}>
-                  {d.date}
+      {footnotes.length > 0 && (
+        <div style={{ marginBottom: '2rem' }}>
+          <h2 style={sectionHeadingStyle}>Footnotes</h2>
+          {footnotes.map((item) => (
+            <div key={item.slug} style={rowStyle}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1, minWidth: 0 }}>
+                <span style={{ fontWeight: 500 }}>{item.title}</span>
+                <span style={{ color: '#999', fontSize: '0.85rem', flexShrink: 0 }}>
+                  {item.date}
                 </span>
+                {item.draft && (
+                  <span style={draftBadgeStyle}>draft</span>
+                )}
               </div>
-              <button
-                onClick={() => publishDraft(d.slug, 'footnote')}
-                disabled={publishing === d.slug}
-                style={{ ...buttonStyle, background: '#000', color: '#fff', fontSize: '0.8rem', padding: '0.35rem 0.75rem' }}
-              >
-                {publishing === d.slug ? 'Publishing...' : 'Publish'}
-              </button>
+              <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0 }}>
+                <Link
+                  href={`/write-footnote?slug=${item.slug}`}
+                  style={{ ...smallButtonStyle, textDecoration: 'none' }}
+                >
+                  Edit
+                </Link>
+                {item.draft && (
+                  <button
+                    onClick={() => publishDraft(item.slug, 'footnote')}
+                    disabled={publishing === item.slug}
+                    style={{ ...smallButtonStyle, background: '#000', color: '#fff' }}
+                  >
+                    {publishing === item.slug ? 'Publishing...' : 'Publish'}
+                  </button>
+                )}
+              </div>
             </div>
           ))}
         </div>
@@ -226,19 +248,39 @@ const actionButtonStyle: React.CSSProperties = {
   fontFamily: 'inherit',
 };
 
-const subheadingStyle: React.CSSProperties = {
-  fontSize: '0.95rem',
+const sectionHeadingStyle: React.CSSProperties = {
+  fontSize: '1rem',
   fontWeight: 600,
-  margin: '0 0 0.5rem 0',
-  color: '#666',
+  margin: '0 0 0.75rem 0',
 };
 
-const draftRowStyle: React.CSSProperties = {
+const rowStyle: React.CSSProperties = {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: '0.5rem 0',
   borderBottom: '1px solid #f0f0f0',
-  gap: '0.5rem',
+  gap: '0.75rem',
   flexWrap: 'wrap',
+};
+
+const smallButtonStyle: React.CSSProperties = {
+  padding: '0.35rem 0.75rem',
+  border: '1px solid #ddd',
+  borderRadius: '4px',
+  background: '#fff',
+  color: '#000',
+  cursor: 'pointer',
+  fontSize: '0.8rem',
+  fontFamily: 'inherit',
+};
+
+const draftBadgeStyle: React.CSSProperties = {
+  fontSize: '0.7rem',
+  padding: '0.15rem 0.4rem',
+  borderRadius: '3px',
+  background: '#f5f5f5',
+  color: '#999',
+  border: '1px solid #eee',
+  flexShrink: 0,
 };

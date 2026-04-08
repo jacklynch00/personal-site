@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import MarkdownEditor from '../components/MarkdownEditor';
 
 function slugify(title: string): string {
@@ -15,13 +16,58 @@ function today(): string {
 }
 
 export default function WritePage() {
+  return (
+    <Suspense>
+      <WritePageInner />
+    </Suspense>
+  );
+}
+
+function WritePageInner() {
+  const searchParams = useSearchParams();
+  const editSlug = searchParams.get('slug');
+
   const [password, setPassword] = useState('');
   const [authenticated, setAuthenticated] = useState(false);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [originalSlug, setOriginalSlug] = useState<string | null>(null);
+  const [originalDate, setOriginalDate] = useState<string | null>(null);
+  const [loadingContent, setLoadingContent] = useState(false);
   const [status, setStatus] = useState('');
   const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState(false);
+
+  useEffect(() => {
+    if (authenticated && editSlug) {
+      loadExisting();
+    }
+  }, [authenticated, editSlug]);
+
+  async function loadExisting() {
+    setLoadingContent(true);
+    try {
+      const res = await fetch(
+        `/api/content/${editSlug}?type=essay&password=${encodeURIComponent(password)}`
+      );
+      if (res.ok) {
+        const data = await res.json();
+        setTitle(data.title);
+        setContent(data.content);
+        setOriginalSlug(data.slug);
+        setOriginalDate(data.date);
+      } else {
+        setStatus('Failed to load essay');
+      }
+    } catch (e) {
+      setStatus(`Failed to load essay: ${e}`);
+    }
+    setLoadingContent(false);
+  }
+
+  const isEditing = !!originalSlug;
+  const slug = isEditing ? originalSlug : slugify(title);
+  const date = isEditing ? originalDate! : today();
 
   async function saveDraft() {
     if (!title.trim()) {
@@ -38,9 +84,9 @@ export default function WritePage() {
         body: JSON.stringify({
           password,
           title: title.trim(),
-          date: today(),
+          date,
           content: content.trim(),
-          slug: slugify(title),
+          slug,
           draft: true,
         }),
       });
@@ -73,9 +119,9 @@ export default function WritePage() {
         body: JSON.stringify({
           password,
           title: title.trim(),
-          date: today(),
+          date,
           content: content.trim(),
-          slug: slugify(title),
+          slug,
         }),
       });
 
@@ -94,7 +140,7 @@ export default function WritePage() {
   if (!authenticated) {
     return (
       <div>
-        <h1>Write</h1>
+        <h1>{editSlug ? 'Edit Essay' : 'Write'}</h1>
         <form
           onSubmit={async (e) => {
             e.preventDefault();
@@ -137,9 +183,18 @@ export default function WritePage() {
     );
   }
 
+  if (loadingContent) {
+    return (
+      <div>
+        <h1>Edit Essay</h1>
+        <p style={{ color: '#999' }}>Loading...</p>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <h1>Write</h1>
+      <h1>{isEditing ? 'Edit Essay' : 'Write'}</h1>
 
       <input
         type="text"
