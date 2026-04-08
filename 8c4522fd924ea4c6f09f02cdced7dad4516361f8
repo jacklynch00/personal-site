@@ -1,0 +1,29 @@
+app/write-footnote/page.tsx
+  dfe0d2658ff9e9f6 4,609,611-614
+app/write/page.tsx
+  dfe0d2658ff9e9f6 4,162,164-166
+app/components/MarkdownEditor.tsx
+  dfe0d2658ff9e9f6 1-517
+app/api/upload-image/route.ts
+  dfe0d2658ff9e9f6 1-62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "8c4522fd924ea4c6f09f02cdced7dad4516361f8",
+  "prompts": {
+    "dfe0d2658ff9e9f6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "55eeb038-ef28-4d13-873b-f22773560801",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Jack Lynch",
+      "messages": [],
+      "total_additions": 590,
+      "total_deletions": 18,
+      "accepted_lines": 590,
+      "overriden_lines": 0
+    }
+  }
+}
