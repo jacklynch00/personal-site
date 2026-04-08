@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import MarkdownEditor from '../components/MarkdownEditor';
+import WritingGuideSheet from '../components/WritingGuideSheet';
 
 function slugify(title: string): string {
   return title
@@ -22,6 +23,7 @@ export default function WritePage() {
   const [status, setStatus] = useState('');
   const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(false);
 
   async function saveDraft() {
     if (!title.trim()) {
@@ -139,7 +141,21 @@ export default function WritePage() {
 
   return (
     <div>
-      <h1>Write</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+        <h1 style={{ margin: 0 }}>Write</h1>
+        <button
+          onClick={() => setGuideOpen(true)}
+          style={{
+            ...buttonStyle,
+            fontSize: '0.8rem',
+            padding: '0.35rem 0.75rem',
+            background: '#fafafa',
+            borderColor: '#ddd',
+          }}
+        >
+          Writing Guide
+        </button>
+      </div>
 
       <input
         type="text"
@@ -170,6 +186,8 @@ export default function WritePage() {
       </div>
 
       {status && <p style={{ color: status.startsWith('Error') || status.startsWith('Failed') ? '#c00' : '#333' }}>{status}</p>}
+
+      <WritingGuideSheet open={guideOpen} onClose={() => setGuideOpen(false)} />
     </div>
   );
 }
