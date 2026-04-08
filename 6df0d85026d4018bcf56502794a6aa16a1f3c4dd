@@ -1,0 +1,23 @@
+app/admin/page.tsx
+  dc60ae0773958995 181,428
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "6df0d85026d4018bcf56502794a6aa16a1f3c4dd",
+  "prompts": {
+    "dc60ae0773958995": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "88e6b23c-7364-456b-a659-33b2aaf50a5d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Jack Lynch",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 320,
+      "overriden_lines": 0
+    }
+  }
+}
