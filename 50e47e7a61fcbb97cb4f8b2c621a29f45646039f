@@ -1,0 +1,25 @@
+app/write-footnote/page.tsx
+  1eb561c2034735f1 502
+app/write/page.tsx
+  1eb561c2034735f1 199-200,213
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "50e47e7a61fcbb97cb4f8b2c621a29f45646039f",
+  "prompts": {
+    "1eb561c2034735f1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "747473fc-177c-4bd8-b7a8-9c1ad3635d04",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Jack Lynch",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 166,
+      "overriden_lines": 0
+    }
+  }
+}
