@@ -1,0 +1,39 @@
+app/page.tsx
+  dc60ae0773958995 5,7-10,15-23,77-118
+app/api/books/route.ts
+  dc60ae0773958995 1-106
+lib/books.ts
+  dc60ae0773958995 1-47
+app/globals.css
+  dc60ae0773958995 152-196
+.gitignore
+  dc60ae0773958995 38-40
+content/books.json
+  dc60ae0773958995 1-4
+docs/superpowers/specs/2026-04-07-book-tracker-design.md
+  dc60ae0773958995 1-147
+app/admin/page.tsx
+  dc60ae0773958995 13-20,30-41,58-178,180-183,327-445
+app/books/page.tsx
+  dc60ae0773958995 1-75
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "30930452a0bdda2c76535a1d540bb8e2080d1518",
+  "prompts": {
+    "dc60ae0773958995": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "88e6b23c-7364-456b-a659-33b2aaf50a5d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Jack Lynch",
+      "messages": [],
+      "total_additions": 750,
+      "total_deletions": 2,
+      "accepted_lines": 749,
+      "overriden_lines": 0
+    }
+  }
+}
