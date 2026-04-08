@@ -2,10 +2,25 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getEssays } from '@/lib/essays';
 import { getFootnotes } from '@/lib/footnotes';
+import { getBooks } from '@/lib/books';
+
+function formatBookDate(dateStr: string): string {
+  const date = new Date(dateStr + 'T00:00:00');
+  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+}
 
 export default async function Home() {
   const essays = await getEssays();
   const footnotes = await getFootnotes();
+  const { goal, books } = getBooks();
+
+  const currentYear = new Date().getFullYear();
+  const yearBooks = books.filter((b) => b.year === currentYear);
+  const currentlyReading = yearBooks.find((b) => b.status === 'reading') || null;
+  const finishedBooks = yearBooks
+    .filter((b) => b.status === 'finished')
+    .sort((a, b) => (b.dateFinished || '').localeCompare(a.dateFinished || ''));
+  const finishedCount = finishedBooks.length;
 
   return (
     <>
@@ -58,6 +73,48 @@ export default async function Home() {
           <p style={{ color: '#999', fontSize: '0.9rem' }}>Coming soon.</p>
         )}
         <Link href="/footnotes" className="section-link">View all footnotes →</Link>
+      </section>
+
+      <section>
+        <div className="reading-header">
+          <h2>Reading</h2>
+          <span className="reading-progress">{currentYear} · {finishedCount} of {goal}</span>
+        </div>
+        <div className="progress-bar">
+          <div
+            className="progress-bar-fill"
+            style={{ width: `${Math.min((finishedCount / goal) * 100, 100)}%` }}
+          />
+        </div>
+
+        {currentlyReading && (
+          <>
+            <p className="book-label">Now reading</p>
+            <p className="book-entry">
+              {currentlyReading.title} <span className="book-author">— {currentlyReading.author}</span>
+            </p>
+          </>
+        )}
+
+        {finishedBooks.length > 0 && (
+          <>
+            <p className="book-label">Finished</p>
+            <ul className="essay-list">
+              {finishedBooks.map((book, i) => (
+                <li key={i}>
+                  <span>{book.title} <span className="book-author">— {book.author}</span></span>
+                  <span className="essay-date">{book.dateFinished ? formatBookDate(book.dateFinished) : ''}</span>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {!currentlyReading && finishedBooks.length === 0 && (
+          <p style={{ color: '#999', fontSize: '0.9rem' }}>No books yet this year.</p>
+        )}
+
+        <Link href="/books" className="section-link">View past years →</Link>
       </section>
     </>
   );

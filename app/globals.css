@@ -149,6 +149,51 @@ article .back-link:hover {
   color: #000;
 }
 
+/* Reading / Book tracker */
+.reading-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.reading-header h2 {
+  margin-bottom: 0.5rem;
+}
+
+.reading-progress {
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.progress-bar {
+  height: 4px;
+  background: #eee;
+  border-radius: 2px;
+  margin-bottom: 1.25rem;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: #000;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.book-label {
+  color: #999;
+  font-size: 0.85rem;
+  margin: 0 0 0.25rem 0;
+}
+
+.book-entry {
+  margin: 0 0 0.75rem 0;
+  color: #000;
+}
+
+.book-author {
+  color: #666;
+}
+
 /* Tiptap editor */
 .tiptap-editor {
   outline: none;
