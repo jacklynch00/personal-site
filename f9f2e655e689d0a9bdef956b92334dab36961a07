@@ -1,0 +1,35 @@
+app/api/publish-footnote/route.ts
+  d714f737875527c5 9,20-21
+app/admin/page.tsx
+  d714f737875527c5 11,30,210-231,314-316,334-349,371-373,391-406,617-626
+app/api/archive/route.ts
+  d714f737875527c5 1-74
+app/api/publish/route.ts
+  d714f737875527c5 9,20-21
+lib/essays.ts
+  d714f737875527c5 12,32,38,57,69,77-91
+lib/footnotes.ts
+  d714f737875527c5 13,34,40,60,72,81-96
+app/api/content/[slug]/route.ts
+  d714f737875527c5 2-3,21,28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "f9f2e655e689d0a9bdef956b92334dab36961a07",
+  "prompts": {
+    "d714f737875527c5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "935b73b9-2e73-4575-8e88-646464931a82",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Jack Lynch",
+      "messages": [],
+      "total_additions": 201,
+      "total_deletions": 10,
+      "accepted_lines": 201,
+      "overriden_lines": 0
+    }
+  }
+}
