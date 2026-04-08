@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { Suspense, useState, useRef, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import MarkdownEditor from '../components/MarkdownEditor';
 import WritingGuideSheet from '../components/WritingGuideSheet';
 
@@ -193,6 +194,17 @@ function OutlineBuilder({
 // ---------------------------------------------------------------------------
 
 export default function WriteFootnotePage() {
+  return (
+    <Suspense>
+      <WriteFootnotePageInner />
+    </Suspense>
+  );
+}
+
+function WriteFootnotePageInner() {
+  const searchParams = useSearchParams();
+  const editSlug = searchParams.get('slug');
+
   const [password, setPassword] = useState('');
   const [authenticated, setAuthenticated] = useState(false);
   const [topics, setTopics] = useState<Topic[]>([]);
@@ -205,6 +217,40 @@ export default function WriteFootnotePage() {
   const [publishing, setPublishing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [guideOpen, setGuideOpen] = useState(false);
+  const [originalSlug, setOriginalSlug] = useState<string | null>(null);
+  const [originalDate, setOriginalDate] = useState<string | null>(null);
+  const [editPrompt, setEditPrompt] = useState<string | null>(null);
+  const [loadingContent, setLoadingContent] = useState(false);
+
+  useEffect(() => {
+    if (authenticated && editSlug) {
+      loadExisting();
+    }
+  }, [authenticated, editSlug]);
+
+  async function loadExisting() {
+    setLoadingContent(true);
+    try {
+      const res = await fetch(
+        `/api/content/${editSlug}?type=footnote&password=${encodeURIComponent(password)}`
+      );
+      if (res.ok) {
+        const data = await res.json();
+        setTitle(data.title);
+        setContent(data.content);
+        setOriginalSlug(data.slug);
+        setOriginalDate(data.date);
+        setEditPrompt(data.prompt || null);
+      } else {
+        setStatus('Failed to load footnote');
+      }
+    } catch (e) {
+      setStatus(`Failed to load footnote: ${e}`);
+    }
+    setLoadingContent(false);
+  }
+
+  const isEditing = !!originalSlug;
 
   async function generateTopics() {
     setLoading(true);
@@ -236,6 +282,10 @@ export default function WriteFootnotePage() {
     setSaving(true);
     setStatus('Saving draft...');
 
+    const slug = isEditing ? originalSlug : slugify(title);
+    const date = isEditing ? originalDate! : today();
+    const prompt = isEditing ? (editPrompt || '') : (selectedTopic?.prompt || '');
+
     try {
       const res = await fetch('/api/publish-footnote', {
         method: 'POST',
@@ -243,10 +293,10 @@ export default function WriteFootnotePage() {
         body: JSON.stringify({
           password,
           title: title.trim(),
-          date: today(),
+          date,
           content: content.trim(),
-          slug: slugify(title),
-          prompt: selectedTopic?.prompt || '',
+          slug,
+          prompt,
           draft: true,
         }),
       });
@@ -272,6 +322,10 @@ export default function WriteFootnotePage() {
     setPublishing(true);
     setStatus('Publishing...');
 
+    const slug = isEditing ? originalSlug : slugify(title);
+    const date = isEditing ? originalDate! : today();
+    const prompt = isEditing ? (editPrompt || '') : (selectedTopic?.prompt || '');
+
     try {
       const res = await fetch('/api/publish-footnote', {
         method: 'POST',
@@ -279,10 +333,10 @@ export default function WriteFootnotePage() {
         body: JSON.stringify({
           password,
           title: title.trim(),
-          date: today(),
+          date,
           content: content.trim(),
-          slug: slugify(title),
-          prompt: selectedTopic?.prompt || '',
+          slug,
+          prompt,
         }),
       });
 
@@ -306,7 +360,7 @@ export default function WriteFootnotePage() {
   if (!authenticated) {
     return (
       <div>
-        <h1>Write a Footnote</h1>
+        <h1>{editSlug ? 'Edit Footnote' : 'Write a Footnote'}</h1>
         <form
           onSubmit={async (e) => {
             e.preventDefault();
@@ -349,10 +403,19 @@ export default function WriteFootnotePage() {
     );
   }
 
+  if (loadingContent) {
+    return (
+      <div>
+        <h1>Edit Footnote</h1>
+        <p style={{ color: '#999' }}>Loading...</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
-        <h1 style={{ margin: 0 }}>Write a Footnote</h1>
+        <h1 style={{ margin: 0 }}>{isEditing ? 'Edit Footnote' : 'Write a Footnote'}</h1>
         <button
           onClick={() => setGuideOpen(true)}
           style={{
@@ -366,12 +429,14 @@ export default function WriteFootnotePage() {
           Writing Guide
         </button>
       </div>
-      <p style={{ color: '#666', marginBottom: '1.5rem' }}>
-        Generate random topics, pick one that sparks something, and write your thoughts.
-      </p>
+      {!isEditing && (
+        <p style={{ color: '#666', marginBottom: '1.5rem' }}>
+          Generate random topics, pick one that sparks something, and write your thoughts.
+        </p>
+      )}
 
-      {/* Topic Generation */}
-      {!selectedTopic && (
+      {/* Topic Generation (hidden when editing) */}
+      {!isEditing && !selectedTopic && (
         <div>
           <button
             onClick={generateTopics}
@@ -412,32 +477,46 @@ export default function WriteFootnotePage() {
       )}
 
       {/* Writing Area */}
-      {selectedTopic && (
+      {(isEditing || selectedTopic) && (
         <div>
-          <div style={{ ...topicCardStyle, marginBottom: '1.5rem', background: '#f9f9f9' }}>
-            <span style={{ fontSize: '0.75rem', color: '#999', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              {selectedTopic.category}
-            </span>
-            <p style={{ margin: '0.25rem 0 0.5rem', fontWeight: 500, color: '#000' }}>
-              {selectedTopic.prompt}
-            </p>
-            <p style={{ margin: '0 0 0.5rem', fontSize: '0.82rem', color: '#888', lineHeight: 1.4 }}>
-              {selectedTopic.context}
-            </p>
-            <button
-              onClick={() => setSelectedTopic(null)}
-              style={{ ...linkButtonStyle, fontSize: '0.8rem', color: '#999' }}
-            >
-              &larr; Pick a different topic
-            </button>
-          </div>
+          {/* Show prompt context */}
+          {isEditing && editPrompt ? (
+            <div style={{ ...topicCardStyle, marginBottom: '1.5rem', background: '#f9f9f9' }}>
+              <span style={{ fontSize: '0.75rem', color: '#999', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                Prompt
+              </span>
+              <p style={{ margin: '0.25rem 0 0', fontWeight: 500, color: '#000' }}>
+                {editPrompt}
+              </p>
+            </div>
+          ) : selectedTopic ? (
+            <div style={{ ...topicCardStyle, marginBottom: '1.5rem', background: '#f9f9f9' }}>
+              <span style={{ fontSize: '0.75rem', color: '#999', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                {selectedTopic.category}
+              </span>
+              <p style={{ margin: '0.25rem 0 0.5rem', fontWeight: 500, color: '#000' }}>
+                {selectedTopic.prompt}
+              </p>
+              <p style={{ margin: '0 0 0.5rem', fontSize: '0.82rem', color: '#888', lineHeight: 1.4 }}>
+                {selectedTopic.context}
+              </p>
+              <button
+                onClick={() => setSelectedTopic(null)}
+                style={{ ...linkButtonStyle, fontSize: '0.8rem', color: '#999' }}
+              >
+                &larr; Pick a different topic
+              </button>
+            </div>
+          ) : null}
 
-          {/* Outline Builder */}
-          <OutlineBuilder items={outlineItems} onChange={setOutlineItems} />
-
-          {/* Divider between outline and writing */}
-          {outlineItems.length > 0 && (
-            <div style={{ borderTop: '1px solid #eee', marginBottom: '1.5rem' }} />
+          {/* Outline Builder (only for new footnotes) */}
+          {!isEditing && (
+            <>
+              <OutlineBuilder items={outlineItems} onChange={setOutlineItems} />
+              {outlineItems.length > 0 && (
+                <div style={{ borderTop: '1px solid #eee', marginBottom: '1.5rem' }} />
+              )}
+            </>
           )}
 
           <input
