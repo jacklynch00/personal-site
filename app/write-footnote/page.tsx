@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import MarkdownEditor from '../components/MarkdownEditor';
 
 interface TopicLink {
   title: string;
@@ -642,16 +643,12 @@ export default function WriteFootnotePage() {
             autoFocus
           />
 
-          <textarea
-            placeholder="Write your thoughts... Keep it to a few paragraphs. Don't overthink it."
+          <MarkdownEditor
             value={content}
-            onChange={(e) => setContent(e.target.value)}
-            style={{
-              ...inputStyle,
-              minHeight: '30vh',
-              lineHeight: '1.6',
-              resize: 'vertical',
-            }}
+            onChange={setContent}
+            password={password}
+            minHeight="30vh"
+            placeholder="Write your thoughts... Keep it to a few paragraphs. Don't overthink it."
           />
 
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
