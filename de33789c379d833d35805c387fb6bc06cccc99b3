@@ -1,0 +1,23 @@
+docs/superpowers/specs/2026-04-07-admin-page-design.md
+  d6521032ce715ca0 1-83
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "de33789c379d833d35805c387fb6bc06cccc99b3",
+  "prompts": {
+    "d6521032ce715ca0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5de072e2-eb6b-443d-afff-63b1c795fa17",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Jack Lynch",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 83,
+      "overriden_lines": 0
+    }
+  }
+}
