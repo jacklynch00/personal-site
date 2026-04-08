@@ -1,0 +1,23 @@
+app/page.tsx
+  bb8deb56a3a28fbb 21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "f3e3067cf5fd02d3619449f43b07d82ee377a4bd",
+  "prompts": {
+    "bb8deb56a3a28fbb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "abb2e783-ed22-4cf6-9e91-31b5217f17dd",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Jack Lynch",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}
