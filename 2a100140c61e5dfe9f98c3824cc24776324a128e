@@ -1,0 +1,25 @@
+app/api/generate-topics/route.ts
+  17f1351c42c723a5 2,7,10-27,29-31,34-36,39-41,44-46,49-51,55-56,58-59,62-63,65-70,72-77,80-92,95-100,102-104,106-107,110-120
+app/write-footnote/page.tsx
+  17f1351c42c723a5 9,565-567,593-595
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "2a100140c61e5dfe9f98c3824cc24776324a128e",
+  "prompts": {
+    "17f1351c42c723a5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2849d4ed-329f-43ae-8e32-8dfb98389042",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Jack Lynch",
+      "messages": [],
+      "total_additions": 119,
+      "total_deletions": 276,
+      "accepted_lines": 99,
+      "overriden_lines": 0
+    }
+  }
+}
