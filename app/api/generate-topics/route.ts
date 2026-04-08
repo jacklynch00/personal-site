@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
 
+export const maxDuration = 60;
+
 interface Topic {
   prompt: string;
   category: string;
@@ -61,6 +63,8 @@ export async function GET() {
 
   try {
     const client = new Anthropic({ apiKey });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 50000);
 
     let messages: Anthropic.MessageParam[] = [
       {
@@ -69,13 +73,16 @@ export async function GET() {
       },
     ];
 
-    let response = await client.messages.create({
-      model: 'claude-sonnet-4-5',
-      max_tokens: 4096,
-      system: SYSTEM_PROMPT,
-      messages,
-      tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-    });
+    let response = await client.messages.create(
+      {
+        model: 'claude-sonnet-4-5',
+        max_tokens: 4096,
+        system: SYSTEM_PROMPT,
+        messages,
+        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+      },
+      { signal: controller.signal },
+    );
 
     // Handle pause_turn — the server-side web search loop may need continuation
     while (response.stop_reason === 'pause_turn') {
@@ -83,14 +90,19 @@ export async function GET() {
         ...messages,
         { role: 'assistant', content: response.content },
       ];
-      response = await client.messages.create({
-        model: 'claude-sonnet-4-5',
-        max_tokens: 4096,
-        system: SYSTEM_PROMPT,
-        messages,
-        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-      });
+      response = await client.messages.create(
+        {
+          model: 'claude-sonnet-4-5',
+          max_tokens: 4096,
+          system: SYSTEM_PROMPT,
+          messages,
+          tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+        },
+        { signal: controller.signal },
+      );
     }
+
+    clearTimeout(timeout);
 
     // Extract the final text from the response content blocks
     const textBlock = response.content.find(
