@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getEssay } from '@/lib/essays';
-import { getFootnote } from '@/lib/footnotes';
+import { getRawEssay } from '@/lib/essays';
+import { getRawFootnote } from '@/lib/footnotes';
 
 const PUBLISH_PASSWORD = process.env.PUBLISH_PASSWORD || '';
 
@@ -18,14 +18,14 @@ export async function GET(
   const { slug } = await params;
 
   if (type === 'footnote') {
-    const footnote = await getFootnote(slug);
+    const footnote = await getRawFootnote(slug);
     if (!footnote) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
     return NextResponse.json(footnote);
   }
 
-  const essay = await getEssay(slug);
+  const essay = await getRawEssay(slug);
   if (!essay) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }

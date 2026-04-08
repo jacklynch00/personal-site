@@ -6,7 +6,7 @@ const GITHUB_REPO = process.env.GITHUB_REPO || 'jacklynch00/personal-site';
 const GITHUB_BRANCH = process.env.GITHUB_BRANCH || 'main';
 
 export async function POST(req: NextRequest) {
-  const { password, title, date, content, slug, draft } = await req.json();
+  const { password, title, date, content, slug, draft, archived } = await req.json();
 
   if (!password || password !== PUBLISH_PASSWORD) {
     return NextResponse.json({ error: 'Wrong password' }, { status: 401 });
@@ -17,7 +17,8 @@ export async function POST(req: NextRequest) {
   }
 
   const draftLine = draft ? `\ndraft: true` : '';
-  const mdxContent = `---\ntitle: "${title}"\ndate: "${date}"${draftLine}\n---\n\n${content}\n`;
+  const archivedLine = archived ? `\narchived: true` : '';
+  const mdxContent = `---\ntitle: "${title}"\ndate: "${date}"${draftLine}${archivedLine}\n---\n\n${content}\n`;
   const filePath = `content/essays/${slug}.mdx`;
   const encoded = Buffer.from(mdxContent).toString('base64');
 

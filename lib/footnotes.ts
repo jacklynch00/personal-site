@@ -10,6 +10,7 @@ export interface Footnote {
   date: string;
   prompt: string;
   draft?: boolean;
+  archived?: boolean;
   content: string;
 }
 
@@ -30,12 +31,13 @@ export async function getFootnotes(): Promise<Footnote[]> {
         date: data.date as string,
         prompt: (data.prompt as string) || '',
         draft: data.draft === true,
+        archived: data.archived === true,
         content: fileContents,
       };
     })
     .sort((a, b) => (a.date > b.date ? -1 : 1));
 
-  return footnotes.filter((f) => !f.draft);
+  return footnotes.filter((f) => !f.draft && !f.archived);
 }
 
 export async function getAllFootnotes(): Promise<Footnote[]> {
@@ -55,6 +57,7 @@ export async function getAllFootnotes(): Promise<Footnote[]> {
         date: data.date as string,
         prompt: (data.prompt as string) || '',
         draft: data.draft === true,
+        archived: data.archived === true,
         content: fileContents,
       };
     })
@@ -66,11 +69,28 @@ export async function getFootnote(slug: string): Promise<Footnote | null> {
   if (!fs.existsSync(fullPath)) return null;
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
+  if (data.draft === true || data.archived === true) return null;
   return {
     slug,
     title: data.title as string,
     date: data.date as string,
     prompt: (data.prompt as string) || '',
+    content,
+  };
+}
+
+export async function getRawFootnote(slug: string): Promise<Footnote | null> {
+  const fullPath = path.join(footnotesDirectory, `${slug}.mdx`);
+  if (!fs.existsSync(fullPath)) return null;
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const { data, content } = matter(fileContents);
+  return {
+    slug,
+    title: data.title as string,
+    date: data.date as string,
+    prompt: (data.prompt as string) || '',
+    draft: data.draft === true,
+    archived: data.archived === true,
     content,
   };
 }
