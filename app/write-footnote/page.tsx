@@ -375,6 +375,7 @@ export default function WriteFootnotePage() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [status, setStatus] = useState('');
+  const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [guideOpen, setGuideOpen] = useState(false);
@@ -399,6 +400,42 @@ export default function WriteFootnotePage() {
     setTitle('');
     setContent('');
     setStatus('');
+  }
+
+  async function saveDraft() {
+    if (!title.trim()) {
+      setStatus('Enter a title first');
+      return;
+    }
+    setSaving(true);
+    setStatus('Saving draft...');
+
+    try {
+      const res = await fetch('/api/publish-footnote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          password,
+          title: title.trim(),
+          date: today(),
+          content: content.trim(),
+          slug: slugify(title),
+          prompt: selectedTopic?.prompt || '',
+          draft: true,
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setStatus('Draft saved to server');
+        setTimeout(() => setStatus(''), 2000);
+      } else {
+        setStatus(`Error: ${data.error}`);
+      }
+    } catch (e) {
+      setStatus(`Failed: ${e}`);
+    }
+    setSaving(false);
   }
 
   async function publish() {
@@ -615,6 +652,9 @@ export default function WriteFootnotePage() {
           />
 
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+            <button onClick={saveDraft} disabled={saving} style={buttonStyle}>
+              {saving ? 'Saving...' : 'Save Draft'}
+            </button>
             <button
               onClick={publish}
               disabled={publishing}
