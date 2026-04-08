@@ -3,6 +3,7 @@
 import { Suspense, useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import MarkdownEditor from '../components/MarkdownEditor';
+import WritingGuideSheet from '../components/WritingGuideSheet';
 
 function slugify(title: string): string {
   return title
@@ -37,6 +38,7 @@ function WritePageInner() {
   const [status, setStatus] = useState('');
   const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(false);
 
   useEffect(() => {
     if (authenticated && editSlug) {
@@ -194,7 +196,21 @@ function WritePageInner() {
 
   return (
     <div>
-      <h1>{isEditing ? 'Edit Essay' : 'Write'}</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+        <h1 style={{ margin: 0 }}>{isEditing ? 'Edit Essay' : 'Write'}</h1>
+        <button
+          onClick={() => setGuideOpen(true)}
+          style={{
+            ...buttonStyle,
+            fontSize: '0.8rem',
+            padding: '0.35rem 0.75rem',
+            background: '#fafafa',
+            borderColor: '#ddd',
+          }}
+        >
+          Writing Guide
+        </button>
+      </div>
 
       <input
         type="text"
@@ -225,6 +241,8 @@ function WritePageInner() {
       </div>
 
       {status && <p style={{ color: status.startsWith('Error') || status.startsWith('Failed') ? '#c00' : '#333' }}>{status}</p>}
+
+      <WritingGuideSheet open={guideOpen} onClose={() => setGuideOpen(false)} />
     </div>
   );
 }
