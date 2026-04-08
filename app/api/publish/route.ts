@@ -6,7 +6,7 @@ const GITHUB_REPO = process.env.GITHUB_REPO || 'jacklynch00/personal-site';
 const GITHUB_BRANCH = process.env.GITHUB_BRANCH || 'main';
 
 export async function POST(req: NextRequest) {
-  const { password, title, date, content, slug } = await req.json();
+  const { password, title, date, content, slug, draft } = await req.json();
 
   if (!password || password !== PUBLISH_PASSWORD) {
     return NextResponse.json({ error: 'Wrong password' }, { status: 401 });
@@ -16,7 +16,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Missing title, content, or slug' }, { status: 400 });
   }
 
-  const mdxContent = `---\ntitle: "${title}"\ndate: "${date}"\n---\n\n${content}\n`;
+  const draftLine = draft ? `\ndraft: true` : '';
+  const mdxContent = `---\ntitle: "${title}"\ndate: "${date}"${draftLine}\n---\n\n${content}\n`;
   const filePath = `content/essays/${slug}.mdx`;
   const encoded = Buffer.from(mdxContent).toString('base64');
 
@@ -34,7 +35,7 @@ export async function POST(req: NextRequest) {
 
     // Create or update the file
     const body: Record<string, string> = {
-      message: `Publish essay: ${title}`,
+      message: draft ? `Save draft: ${title}` : `Publish essay: ${title}`,
       content: encoded,
       branch: GITHUB_BRANCH,
     };

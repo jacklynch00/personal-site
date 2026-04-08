@@ -9,6 +9,7 @@ export interface Footnote {
   title: string;
   date: string;
   prompt: string;
+  draft?: boolean;
   content: string;
 }
 
@@ -28,12 +29,36 @@ export async function getFootnotes(): Promise<Footnote[]> {
         title: data.title as string,
         date: data.date as string,
         prompt: (data.prompt as string) || '',
+        draft: data.draft === true,
         content: fileContents,
       };
     })
     .sort((a, b) => (a.date > b.date ? -1 : 1));
 
-  return footnotes;
+  return footnotes.filter((f) => !f.draft);
+}
+
+export async function getAllFootnotes(): Promise<Footnote[]> {
+  if (!fs.existsSync(footnotesDirectory)) return [];
+
+  const fileNames = fs.readdirSync(footnotesDirectory);
+  return fileNames
+    .filter((f) => f.endsWith('.mdx'))
+    .map((fileName) => {
+      const slug = fileName.replace(/\.mdx$/, '');
+      const fullPath = path.join(footnotesDirectory, fileName);
+      const fileContents = fs.readFileSync(fullPath, 'utf8');
+      const { data } = matter(fileContents);
+      return {
+        slug,
+        title: data.title as string,
+        date: data.date as string,
+        prompt: (data.prompt as string) || '',
+        draft: data.draft === true,
+        content: fileContents,
+      };
+    })
+    .sort((a, b) => (a.date > b.date ? -1 : 1));
 }
 
 export async function getFootnote(slug: string): Promise<Footnote | null> {
