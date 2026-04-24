@@ -4,8 +4,9 @@
     {
       "title": "Hail Mary",
       "author": "Andy Weir",
-      "status": "reading",
-      "year": 2026
+      "status": "finished",
+      "year": 2026,
+      "dateFinished": "2026-04-24"
     }
   ]
 }
