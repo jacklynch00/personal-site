@@ -38,3 +38,22 @@ Styles - Any needed styles outside of tailwind.
  1. Clone this repository
  2. Run `npm run dev`
  3. Open [http://localhost](http://localhost) to view the app.
+
+## One-off Vercel project import
+
+To seed the Projects table from Vercel once, add these to `.env.local`:
+
+```bash
+DATABASE_URL="postgresql://..."
+VERCEL_TOKEN="..."
+# Optional, only for team-owned projects:
+VERCEL_TEAM_ID="team_..."
+```
+
+Then run:
+
+```bash
+npm run seed:vercel-projects
+```
+
+The script creates missing project rows from Vercel project names/domains and skips slugs that already exist. Edit the imported stories, tags, status, and Stripe keys in `/admin`.

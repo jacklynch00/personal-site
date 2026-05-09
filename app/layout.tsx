@@ -1,6 +1,7 @@
 import './globals.css';
 import Script from 'next/script';
 import { Metadata } from 'next';
+import RaceButton from './components/RaceButton';
 
 export const metadata: Metadata = {
   title: 'Jack Lynch',
@@ -29,9 +30,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <div className="container">
-          {children}
-        </div>
+        {children}
+        <RaceButton />
         <Script
           defer
           data-website-id="dfid_BMYQNi3XLMkbTFPtdF5eA"
