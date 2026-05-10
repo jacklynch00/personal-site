@@ -141,9 +141,10 @@ function WritePageInner() {
 
   if (!authenticated) {
     return (
-      <div>
+      <div className="write-shell">
         <h1>{editSlug ? 'Edit Essay' : 'Write'}</h1>
         <form
+          className="write-login-form"
           onSubmit={async (e) => {
             e.preventDefault();
             if (!password) {
@@ -187,7 +188,7 @@ function WritePageInner() {
 
   if (loadingContent) {
     return (
-      <div>
+      <div className="write-shell">
         <h1>Edit Essay</h1>
         <p style={{ color: '#999' }}>Loading...</p>
       </div>
@@ -195,8 +196,8 @@ function WritePageInner() {
   }
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+    <div className="write-shell">
+      <div className="write-header">
         <h1 style={{ margin: 0 }}>{isEditing ? 'Edit Essay' : 'Write'}</h1>
         <button
           onClick={() => setGuideOpen(true)}
