@@ -1,0 +1,31 @@
+app/write/page.tsx
+  s_2d1d4b92ff0492::t_3775e029a714c3 144,147,191,199-200
+app/footnotes/page.tsx
+  s_2d1d4b92ff0492::t_b286bf43ca287d 3,14-20,23-26,39
+app/write-footnote/page.tsx
+  s_2d1d4b92ff0492::t_113069a1e14572 362,365,409,417-418
+app/globals.css
+  s_2d1d4b92ff0492::t_1e933afb198696 1650-1666
+  s_2d1d4b92ff0492::t_a3ba0f451c525e 1714-1727,1741,1746-1749,1757-1794,1800-1870,1887-1888,1896,1909-1910,1919-1922,1925-1954,1993-2085,2119-2147,2149-2217
+  s_2d1d4b92ff0492::t_45453798425f38 978,988-991,1021
+  s_2d1d4b92ff0492::t_f053943bf9d650 684,695,2096
+  s_2d1d4b92ff0492::t_1bdfef4e2d1518 2148
+  s_2d1d4b92ff0492::t_5f66926ef30236 23,35-45,82,97,107,114
+  s_2d1d4b92ff0492::t_9fd9cc15a08b97 703,735
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "3e7354ae574542aff197f83fbb41dfabbd92093e",
+  "prompts": {},
+  "sessions": {
+    "s_2d1d4b92ff0492": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e0f56-716e-7e62-bfae-830cee8c5492",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Jack Lynch <jrlynch00@gmail.com>"
+    }
+  }
+}
