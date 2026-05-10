@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getFootnotes } from '@/lib/footnotes';
+import SiteNav from '../components/SiteNav';
 
 export const metadata = {
   title: 'Footnotes — Jack Lynch',
@@ -10,17 +11,19 @@ export default async function FootnotesPage() {
   const footnotes = await getFootnotes();
 
   return (
-    <div>
-      <Link href="/" className="back-link" style={{ display: 'block', marginBottom: '1.5rem', textDecoration: 'none', color: '#999', fontSize: '0.9rem' }}>
-        ← Jack Lynch
-      </Link>
-      <h1>Footnotes</h1>
-      <p style={{ color: '#666' }}>
-        Quick thoughts on random topics. Less polished, more exploratory.
-      </p>
+    <main className="public-page-shell">
+      <SiteNav />
+
+      <section className="page-hero">
+        <h1>Footnotes</h1>
+        <p>Quick thoughts on random topics. Less polished, more exploratory.</p>
+      </section>
 
       {footnotes.length === 0 && (
-        <p style={{ color: '#999', marginTop: '2rem' }}>Nothing here yet.</p>
+        <section className="empty-state">
+          <h2>Nothing here yet.</h2>
+          <p>Footnotes will appear here once published.</p>
+        </section>
       )}
 
       {footnotes.length > 0 && (
@@ -33,6 +36,6 @@ export default async function FootnotesPage() {
           ))}
         </ul>
       )}
-    </div>
+    </main>
   );
 }

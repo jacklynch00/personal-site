@@ -359,9 +359,10 @@ function WriteFootnotePageInner() {
 
   if (!authenticated) {
     return (
-      <div>
+      <div className="write-shell">
         <h1>{editSlug ? 'Edit Footnote' : 'Write a Footnote'}</h1>
         <form
+          className="write-login-form"
           onSubmit={async (e) => {
             e.preventDefault();
             if (!password) {
@@ -405,7 +406,7 @@ function WriteFootnotePageInner() {
 
   if (loadingContent) {
     return (
-      <div>
+      <div className="write-shell">
         <h1>Edit Footnote</h1>
         <p style={{ color: '#999' }}>Loading...</p>
       </div>
@@ -413,8 +414,8 @@ function WriteFootnotePageInner() {
   }
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+    <div className="write-shell">
+      <div className="write-header">
         <h1 style={{ margin: 0 }}>{isEditing ? 'Edit Footnote' : 'Write a Footnote'}</h1>
         <button
           onClick={() => setGuideOpen(true)}
@@ -600,4 +601,3 @@ const topicCardStyle: React.CSSProperties = {
   border: '1px solid #eee',
   borderRadius: '4px',
 };
-
